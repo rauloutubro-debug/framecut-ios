@@ -19,7 +19,7 @@ enum RenderEngine {
             if !clip.muted, let audioSource = try await asset.loadTracks(withMediaType: .audio).first,
                let audioDestination = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
                 let audioRange = try await audioSource.load(.timeRange)
-                let intersection = CMTimeRangeGetIntersection(range, audioRange)
+                let intersection = CMTimeRangeGetIntersection(range, otherRange: audioRange)
                 if intersection.duration.seconds > 0 {
                     try audioDestination.insertTimeRange(intersection, of: audioSource, at: cursor + intersection.start - range.start)
                 }
